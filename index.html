@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Primeira volta ao sol - Serena</title>
+<title>Primeira primavera - Serena</title>
 <link rel="icon" type="image/jpeg" href="favicon.jpg">
 <link rel="apple-touch-icon" href="favicon.jpg">
-<meta property="og:title" content="Serena completa 1 aninho! 🌞">
-<meta property="og:description" content="Confirme sua presença e deixe uma mensagem carinhosa para a Serena.">
+<meta property="og:title" content="Primeira primavera da Serena! 🌸">
+<meta property="og:description" content="Serena está completando seu primeiro aninho — confirme sua presença e deixe uma mensagem carinhosa para ela.">
 <meta property="og:image" content="https://stephenfryy.github.io/Festinha-Seren/social-preview.jpg">
 <meta property="og:url" content="https://stephenfryy.github.io/Festinha-Seren/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,42 +40,74 @@
     padding:28px 20px 60px;
   }
 
-  /* ---- Orbit signature ---- */
-  .orbit-wrap{
+  /* ---- Bloom signature (primavera) ---- */
+  .bloom-wrap{
     position:relative;
     width:170px;
-    height:170px;
-    margin:8px auto 6px;
+    height:150px;
+    margin:8px auto 4px;
   }
-  .orbit-path{
-    position:absolute; inset:0;
-    border:2px dashed var(--line);
-    border-radius:50%;
+  .flower-svg{
+    position:absolute;
+    left:50%; top:52%;
+    width:118px; height:118px;
+    transform:translate(-50%,-50%);
+    animation:bloom-pulse 6s ease-in-out infinite;
   }
-  .sun{
-    position:absolute; top:50%; left:50%;
-    width:54px; height:54px;
-    margin:-27px 0 0 -27px;
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 32%, #F4CE84, var(--gold));
-    box-shadow:0 0 34px rgba(217,164,65,.55);
+  .flower-svg .petal ellipse{
+    fill:var(--blush);
+    opacity:.92;
   }
-  .orbit-rotator{
-    position:absolute; inset:0;
-    animation:spin 9s linear infinite;
+  .flower-svg .flower-center{
+    fill:var(--gold);
   }
-  .planet{
-    position:absolute; top:-1px; left:50%;
-    width:15px; height:15px;
-    margin-left:-7.5px;
-    border-radius:50%;
-    background:var(--blush-deep);
-    box-shadow:0 2px 6px rgba(70,58,56,.25);
+  @keyframes bloom-pulse{
+    0%,100%{ transform:translate(-50%,-50%) scale(1); }
+    50%{ transform:translate(-50%,-50%) scale(1.045); }
   }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .butterfly{
+    position:absolute;
+    width:34px; height:26px;
+  }
+  .butterfly .wing{
+    fill:var(--blush-deep);
+    opacity:.9;
+  }
+  .butterfly .butterfly-body{
+    fill:var(--ink-soft);
+  }
+  .butterfly .antenna{
+    stroke:var(--ink-soft);
+    stroke-width:.8;
+    stroke-linecap:round;
+  }
+  .butterfly-a{
+    left:10%; top:6%;
+    animation:flutter-a 7s ease-in-out infinite;
+  }
+  .butterfly-b{
+    left:68%; top:60%;
+    animation:flutter-b 8.5s ease-in-out infinite;
+    animation-delay:.6s;
+  }
+  .butterfly-b .wing{
+    fill:var(--sage);
+  }
+  @keyframes flutter-a{
+    0%   { transform:translate(0,0) rotate(0deg); }
+    25%  { transform:translate(14px,-10px) rotate(8deg); }
+    50%  { transform:translate(4px,-22px) rotate(-6deg); }
+    75%  { transform:translate(-10px,-8px) rotate(4deg); }
+    100% { transform:translate(0,0) rotate(0deg); }
+  }
+  @keyframes flutter-b{
+    0%   { transform:translate(0,0) rotate(0deg); }
+    30%  { transform:translate(-16px,-8px) rotate(-8deg); }
+    60%  { transform:translate(-6px,10px) rotate(6deg); }
+    100% { transform:translate(0,0) rotate(0deg); }
+  }
   @media (prefers-reduced-motion: reduce){
-    .orbit-rotator{ animation:none; }
-    .planet{ top:auto; bottom:-1px; }
+    .flower-svg, .butterfly-a, .butterfly-b{ animation:none; }
   }
 
   header{ text-align:center; margin-bottom:8px; }
@@ -311,15 +343,46 @@
 <div class="wrap">
 
   <header>
-    <div class="orbit-wrap" aria-hidden="true">
-      <div class="orbit-path"></div>
-      <div class="orbit-rotator"><div class="planet"></div></div>
-      <div class="sun"></div>
+    <div class="bloom-wrap" aria-hidden="true">
+      <svg class="flower-svg" viewBox="-50 -50 100 100">
+        <g class="petal" transform="rotate(0)"><ellipse cx="0" cy="-24" rx="13" ry="21"/></g>
+        <g class="petal" transform="rotate(72)"><ellipse cx="0" cy="-24" rx="13" ry="21"/></g>
+        <g class="petal" transform="rotate(144)"><ellipse cx="0" cy="-24" rx="13" ry="21"/></g>
+        <g class="petal" transform="rotate(216)"><ellipse cx="0" cy="-24" rx="13" ry="21"/></g>
+        <g class="petal" transform="rotate(288)"><ellipse cx="0" cy="-24" rx="13" ry="21"/></g>
+        <circle class="flower-center" cx="0" cy="0" r="9"/>
+      </svg>
+      <svg class="butterfly butterfly-a" viewBox="-19 -14 38 28">
+        <g class="wing wing-left">
+          <ellipse cx="-9" cy="-4" rx="8" ry="6" transform="rotate(-15 -9 -4)"></ellipse>
+          <ellipse cx="-6" cy="5" rx="5.5" ry="4.2" transform="rotate(-10 -6 5)"></ellipse>
+        </g>
+        <g class="wing wing-right">
+          <ellipse cx="9" cy="-4" rx="8" ry="6" transform="rotate(15 9 -4)"></ellipse>
+          <ellipse cx="6" cy="5" rx="5.5" ry="4.2" transform="rotate(10 6 5)"></ellipse>
+        </g>
+        <line class="antenna" x1="0" y1="-8" x2="-3" y2="-12"></line>
+        <line class="antenna" x1="0" y1="-8" x2="3" y2="-12"></line>
+        <ellipse class="butterfly-body" cx="0" cy="0" rx="1.4" ry="9"></ellipse>
+      </svg>
+      <svg class="butterfly butterfly-b" viewBox="-19 -14 38 28">
+        <g class="wing wing-left">
+          <ellipse cx="-9" cy="-4" rx="8" ry="6" transform="rotate(-15 -9 -4)"></ellipse>
+          <ellipse cx="-6" cy="5" rx="5.5" ry="4.2" transform="rotate(-10 -6 5)"></ellipse>
+        </g>
+        <g class="wing wing-right">
+          <ellipse cx="9" cy="-4" rx="8" ry="6" transform="rotate(15 9 -4)"></ellipse>
+          <ellipse cx="6" cy="5" rx="5.5" ry="4.2" transform="rotate(10 6 5)"></ellipse>
+        </g>
+        <line class="antenna" x1="0" y1="-8" x2="-3" y2="-12"></line>
+        <line class="antenna" x1="0" y1="-8" x2="3" y2="-12"></line>
+        <ellipse class="butterfly-body" cx="0" cy="0" rx="1.4" ry="9"></ellipse>
+      </svg>
     </div>
 
     <p class="eyebrow">Confirmação de presença</p>
-    <h1>Serena completa <em>1 aninho</em></h1>
-    <p class="subtitle">Ela deu sua primeira volta ao sol e a gente quer celebrar isso rodeada de gente querida. Confirme sua presença e deixe uma mensagem para ela guardar.</p>
+    <h1>Primeira <em>primavera</em> da Serena!</h1>
+    <p class="subtitle">Serena está completando seu primeiro aninho e queremos celebrar isso rodeados de gente querida!</p>
 
     <div class="details">
       <span>📅 19 de setembro de 2026, sábado</span>
