@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primeira volta ao sol - Serena</title>
+<link rel="icon" type="image/jpeg" href="favicon.jpg">
+<link rel="apple-touch-icon" href="favicon.jpg">
+<meta property="og:title" content="Serena completa 1 aninho! 🌞">
+<meta property="og:description" content="Confirme sua presença e deixe uma mensagem carinhosa para a Serena.">
+<meta property="og:image" content="social-preview.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EF;
+    --card:#FFFFFF;
+    --ink:#463A38;
+    --ink-soft:#8A7A76;
+    --blush:#E6A0A6;
+    --blush-deep:#D9838B;
+    --sage:#93A988;
+    --gold:#D9A441;
+    --line:#EBDFD4;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+
+  /* ---- Orbit signature ---- */
+  .orbit-wrap{
+    position:relative;
+    width:170px;
+    height:170px;
+    margin:8px auto 6px;
+  }
+  .orbit-path{
+    position:absolute; inset:0;
+    border:2px dashed var(--line);
+    border-radius:50%;
+  }
+  .sun{
+    position:absolute; top:50%; left:50%;
+    width:54px; height:54px;
+    margin:-27px 0 0 -27px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 32%, #F4CE84, var(--gold));
+    box-shadow:0 0 34px rgba(217,164,65,.55);
+  }
+  .orbit-rotator{
+    position:absolute; inset:0;
+    animation:spin 9s linear infinite;
+  }
+  .planet{
+    position:absolute; top:-1px; left:50%;
+    width:15px; height:15px;
+    margin-left:-7.5px;
+    border-radius:50%;
+    background:var(--blush-deep);
+    box-shadow:0 2px 6px rgba(70,58,56,.25);
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){
+    .orbit-rotator{ animation:none; }
+    .planet{ top:auto; bottom:-1px; }
+  }
+
+  header{ text-align:center; margin-bottom:8px; }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sage);
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(28px,7vw,36px);
+    line-height:1.15;
+    margin:0 0 8px;
+  }
+  h1 em{
+    font-style:italic;
+    color:var(--blush-deep);
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.5;
+    margin:0 auto 4px;
+    max-width:340px;
+  }
+  .details{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px 14px;
+    margin:16px 0 30px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .details span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    box-shadow:0 14px 34px -18px rgba(70,58,56,.35);
+    border:1px solid var(--line);
+  }
+
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block;
+    font-size:13.5px;
+    font-weight:600;
+    margin-bottom:7px;
+    color:var(--ink);
+  }
+  .field .hint{
+    font-weight:400;
+    color:var(--ink-soft);
+    font-size:12.5px;
+    display:block;
+    margin-top:4px;
+  }
+  input[type="text"], input[type="number"], textarea{
+    width:100%;
+    font-family:inherit;
+    font-size:15.5px;
+    padding:12px 14px;
+    border-radius:13px;
+    border:1.5px solid var(--line);
+    background:#FDFBF8;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  input:focus, textarea:focus{
+    border-color:var(--blush-deep);
+  }
+  textarea{
+    min-height:100px;
+    resize:vertical;
+    line-height:1.5;
+  }
+
+  .choice-group{
+    display:flex;
+    gap:10px;
+  }
+  .choice{
+    flex:1;
+    text-align:center;
+    padding:13px 8px;
+    border-radius:13px;
+    border:1.5px solid var(--line);
+    background:#FDFBF8;
+    cursor:pointer;
+    font-weight:600;
+    font-size:14px;
+    color:var(--ink-soft);
+    transition:all .15s ease;
+    user-select:none;
+  }
+  .choice.active-yes{
+    border-color:var(--sage);
+    background:rgba(147,169,136,.14);
+    color:#4E6047;
+  }
+  .choice.active-no{
+    border-color:var(--blush-deep);
+    background:rgba(214,131,139,.12);
+    color:var(--blush-deep);
+  }
+
+  .qty-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .qty-btn{
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    background:#FDFBF8;
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .qty-row input{ text-align:center; }
+
+  button.submit{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:var(--blush-deep);
+    color:#fff;
+    font-family:inherit;
+    font-weight:700;
+    font-size:15.5px;
+    cursor:pointer;
+    letter-spacing:.01em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  button.submit:active{ transform:scale(.98); }
+  .error{
+    color:var(--blush-deep);
+    font-size:13px;
+    margin-top:-8px;
+    margin-bottom:14px;
+  }
+
+  .note{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:12px;
+    line-height:1.5;
+    margin:14px 4px 0;
+  }
+  .visually-hidden{ position:absolute; left:-9999px; }
+
+  .result{
+    text-align:center;
+    padding:6px 2px 2px;
+  }
+  .result .big{ font-size:34px; margin-bottom:6px; }
+  .result h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 8px;
+  }
+  .result p{
+    color:var(--ink-soft);
+    font-size:14px;
+    line-height:1.55;
+    margin:0 0 20px;
+  }
+  a.link-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    padding:15px;
+    border-radius:14px;
+    background:#25D366;
+    color:#fff;
+    font-family:inherit;
+    font-weight:700;
+    font-size:15.5px;
+    text-decoration:none;
+    box-sizing:border-box;
+  }
+  button.secondary{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border-radius:13px;
+    border:1.5px solid var(--line);
+    background:#FDFBF8;
+    color:var(--ink);
+    font-family:inherit;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+  }
+  .back-link{
+    display:block;
+    margin:16px auto 0;
+    background:none;
+    border:none;
+    color:var(--ink-soft);
+    font-size:13px;
+    text-decoration:underline;
+    cursor:pointer;
+    font-family:inherit;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="orbit-wrap" aria-hidden="true">
+      <div class="orbit-path"></div>
+      <div class="orbit-rotator"><div class="planet"></div></div>
+      <div class="sun"></div>
+    </div>
+
+    <p class="eyebrow">Confirmação de presença</p>
+    <h1>Serena completa <em>1 aninho</em></h1>
+    <p class="subtitle">Ela deu sua primeira volta ao sol e a gente quer celebrar isso rodeada de gente querida. Confirme sua presença e deixe uma mensagem para ela guardar.</p>
+
+    <div class="details">
+      <span>📅 19 de setembro de 2026, sábado</span>
+      <span>🕓 15h</span>
+      <span>📍 A confirmar</span>
+    </div>
+  </header>
+
+  <div class="card">
+    <form id="rsvpForm" novalidate>
+      <div class="field">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" placeholder="Como podemos te chamar?" autocomplete="name">
+        <div class="error visually-hidden" id="err-nome">Conta pra gente seu nome 🙂</div>
+      </div>
+
+      <div class="field">
+        <label>Você vai poder vir?</label>
+        <div class="choice-group">
+          <div class="choice" id="choiceYes" data-value="sim">Sim, vou! 🎉</div>
+          <div class="choice" id="choiceNo" data-value="nao">Não poderei ir 💛</div>
+        </div>
+        <div class="error visually-hidden" id="err-presenca">Escolha uma das opções acima</div>
+      </div>
+
+      <div class="field" id="qtyField" style="display:none;">
+        <label for="qtd">Quantas pessoas no total (com você)?</label>
+        <div class="qty-row">
+          <button type="button" class="qty-btn" id="qtyMinus">−</button>
+          <input type="number" id="qtd" value="1" min="1" max="20">
+          <button type="button" class="qty-btn" id="qtyPlus">+</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mensagem">Mensagem carinhosa para a Serena
+          <span class="hint">Vai entrar no livrinho de recados dela — pode ser um conselho, uma lembrança ou um desejo. 💌</span>
+        </label>
+        <textarea id="mensagem" placeholder="Escreva aqui com carinho..."></textarea>
+      </div>
+
+      <button type="button" class="submit" id="generateBtn">
+        <span>Enviar confirmação</span>
+      </button>
+
+      <p class="note">Sua resposta é enviada direto para a organizadora — nenhum outro convidado tem acesso às confirmações.</p>
+    </form>
+
+    <div class="result" id="resultView" style="display:none;">
+      <div class="big" id="resultEmoji">🎉</div>
+      <h2 id="resultTitle">Presença confirmada!</h2>
+      <p id="resultText">Obrigada por fazer parte desse dia tão especial.</p>
+      <button type="button" class="back-link" id="againBtn">Enviar outra resposta</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var SUPABASE_URL = 'https://idzqxufdoqtlbhkcjpwo.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkenF4dWZkb3F0bGJoa2NqcHdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwNTUyNDEsImV4cCI6MjEwMzYzMTI0MX0.VhE1_IC8CFRlS5cso4pcFXdz_3vEM2DwhSps-ejKYkA';
+  var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var presencaValue = null;
+
+  var choiceYes = document.getElementById('choiceYes');
+  var choiceNo = document.getElementById('choiceNo');
+  var qtyField = document.getElementById('qtyField');
+  var qtdInput = document.getElementById('qtd');
+
+  choiceYes.addEventListener('click', function(){
+    presencaValue = 'sim';
+    choiceYes.classList.add('active-yes');
+    choiceNo.classList.remove('active-no');
+    qtyField.style.display = 'block';
+    document.getElementById('err-presenca').classList.add('visually-hidden');
+  });
+  choiceNo.addEventListener('click', function(){
+    presencaValue = 'nao';
+    choiceNo.classList.add('active-no');
+    choiceYes.classList.remove('active-yes');
+    qtyField.style.display = 'none';
+    document.getElementById('err-presenca').classList.add('visually-hidden');
+  });
+
+  document.getElementById('qtyMinus').addEventListener('click', function(){
+    var v = parseInt(qtdInput.value || '1', 10);
+    if (v > 1) qtdInput.value = v - 1;
+  });
+  document.getElementById('qtyPlus').addEventListener('click', function(){
+    var v = parseInt(qtdInput.value || '1', 10);
+    if (v < 20) qtdInput.value = v + 1;
+  });
+
+  var form = document.getElementById('rsvpForm');
+  var submitBtn = document.getElementById('generateBtn');
+  var submitLabel = submitBtn.querySelector('span');
+  var resultView = document.getElementById('resultView');
+
+  submitBtn.addEventListener('click', function(){
+    var nome = document.getElementById('nome').value.trim();
+    var mensagem = document.getElementById('mensagem').value.trim();
+    var okNome = nome.length > 0;
+    var okPresenca = presencaValue !== null;
+
+    document.getElementById('err-nome').classList.toggle('visually-hidden', okNome);
+    document.getElementById('err-presenca').classList.toggle('visually-hidden', okPresenca);
+
+    if (!okNome || !okPresenca) return;
+
+    var registro = {
+      nome: nome,
+      presenca: presencaValue,
+      acompanhantes: presencaValue === 'sim' ? parseInt(qtdInput.value || '1', 10) : 0,
+      mensagem: mensagem || null
+    };
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Enviando...';
+
+    supabaseClient.from('confirmacoes').insert([registro])
+      .then(function(res){
+        if (res.error) throw res.error;
+        showResult(registro.presenca, !!mensagem);
+      })
+      .catch(function(err){
+        console.error('Erro ao enviar confirmação:', err);
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Enviar confirmação';
+        alert('Não deu para enviar agora. Verifique sua internet e tente de novo.');
+      });
+  });
+
+  function showResult(presenca, temMensagem){
+    form.style.display = 'none';
+    resultView.style.display = 'block';
+    if (presenca === 'sim'){
+      document.getElementById('resultEmoji').textContent = '🎉';
+      document.getElementById('resultTitle').textContent = 'Presença confirmada!';
+      document.getElementById('resultText').textContent = 'Obrigada por fazer parte desse dia tão especial' + (temMensagem ? '. Sua mensagem já está guardadinha para o livrinho da Serena.' : '.');
+    } else {
+      document.getElementById('resultEmoji').textContent = '💛';
+      document.getElementById('resultTitle').textContent = 'Que pena que não vai dar!';
+      document.getElementById('resultText').textContent = 'Sentiremos sua falta' + (temMensagem ? ', mas sua mensagem carinhosa já está guardada para o livrinho da Serena.' : '.');
+    }
+  }
+
+  document.getElementById('againBtn').addEventListener('click', function(){
+    form.reset();
+    presencaValue = null;
+    choiceYes.classList.remove('active-yes');
+    choiceNo.classList.remove('active-no');
+    qtyField.style.display = 'none';
+    qtdInput.value = 1;
+    submitBtn.disabled = false;
+    submitLabel.textContent = 'Enviar confirmação';
+    resultView.style.display = 'none';
+    form.style.display = 'block';
+  });
+})();
+</script>
+
+</body>
+</html>
